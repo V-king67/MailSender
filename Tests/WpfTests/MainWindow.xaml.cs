@@ -29,20 +29,23 @@ namespace WpfTests
 
         private void BtnLoginClick(object sender, RoutedEventArgs e)
         {
-            //var client = new SmtpClient(cbServerSelect.Text, int.Parse(tbPortEdit.Text));
-            //client.EnableSsl = true;
-            
-
-            //client.Credentials = new NetworkCredential
-            //{
-            //    UserName = tbLoginEdit.Text,
-            //    SecurePassword = pbPasswordEdit.SecurePassword
-            //};            
+            Sender.Client = new SmtpClient(cbServerSelect.Text, int.Parse(tbPortEdit.Text));
+            Sender.Client.EnableSsl = true;
+            Sender.Address = new MailAddress(tbLoginEdit.Text);
+            Sender.Client.Credentials = new NetworkCredential
+            {
+                UserName = tbLoginEdit.Text,
+                SecurePassword = pbPasswordEdit.SecurePassword
+            };
         }
 
         private void BtnSendClick(object sender, RoutedEventArgs e)
         {
-
+            var recipient = new MailAddress(tbRecipientEdit.Text);
+            var message = new MailMessage(Sender.Address, recipient);
+            message.Subject = tbMailSubjectEdit.Text;
+            message.Body = tbMailBodyEdit.Text;
+            Sender.Client.Send(message);
         }
     }
 }
