@@ -39,5 +39,10 @@ namespace WpfTests
             //    SecurePassword = pbPasswordEdit.SecurePassword
             //};            
         }
+
+        private void BtnSendClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
