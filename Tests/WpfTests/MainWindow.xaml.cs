@@ -27,27 +27,17 @@ namespace WpfTests
             InitializeComponent();
         }
 
-        private void BtnSendClick(object sender, RoutedEventArgs e)
+        private void BtnLoginClick(object sender, RoutedEventArgs e)
         {
-            var to = new MailAddress("jaskev@yandex.ru", "Иван");
-            var from = new MailAddress("jaskev@yandex.ru", "Иван");
-            var message = new MailMessage(from, to);
-
-            message.Subject = "Заголовок письма от " + DateTime.Now;
-            message.Body = "Текст тестового письма";
-
-            var client = new SmtpClient("smtp.yandex.ru", 25);
-            client.EnableSsl = true;
+            //var client = new SmtpClient(cbServerSelect.Text, int.Parse(tbPortEdit.Text));
+            //client.EnableSsl = true;
             
 
-            client.Credentials = new NetworkCredential
-            {
-                UserName = tbLoginEdit.Text,
-                SecurePassword = pbPasswordEdit.SecurePassword
-            };
-
-            client.Send(message);
-            
+            //client.Credentials = new NetworkCredential
+            //{
+            //    UserName = tbLoginEdit.Text,
+            //    SecurePassword = pbPasswordEdit.SecurePassword
+            //};            
         }
     }
 }
