@@ -40,9 +40,15 @@
                                 <ComboBoxItem>smtp.mail.ru</ComboBoxItem>
                                 <ComboBoxItem>smtp.gmail.com</ComboBoxItem>
                             </ComboBox>
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <Button>
+                                <Image Source="Media/Add.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/Edit.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/Delete.png" Height="12"/>
+                            </Button>
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
                             <ComboBox MinWidth="120" MaxWidth="200">
@@ -50,17 +56,29 @@
                                 <ComboBoxItem>Отправитель 2</ComboBoxItem>
                                 <ComboBoxItem>Отправитель 3</ComboBoxItem>
                             </ComboBox>
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <Button>
+                                <Image Source="Media/Add.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/Edit.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/Delete.png" Height="12"/>
+                            </Button>
                         </ToolBar>
                         <ToolBar Header="Планировщик" Band="0">
                             <Button Content="Перейти"/>
                         </ToolBar>
                         <ToolBar Header="Получатели" Band="1">
-                            <Button Content="Add"/>
-                            <Button Content="Edit"/>
-                            <Button Content="Del"/>
+                            <Button>
+                                <Image Source="Media/Add.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/Edit.png" Height="12"/>
+                            </Button>
+                            <Button>
+                                <Image Source="Media/Delete.png" Height="12"/>
+                            </Button>
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей">
