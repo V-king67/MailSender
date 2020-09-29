@@ -8,12 +8,27 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл"/>
-            <MenuItem Header="Помощь"/>
-            <MenuItem Header="Выход"/>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Создать"/>
+                <MenuItem Header="Открыть"/>
+                <MenuItem Header="Сохранить"/>
+                <Separator/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Параметры"/>
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="О программе"/>
+            </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            Готов!
+            <StatusBarItem DockPanel.Dock="Right">
+                <ResizeGrip/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Статус"/>
+            </StatusBarItem>
         </StatusBar>
         <TabControl>
             <TabItem Header="Списки"></TabItem>
