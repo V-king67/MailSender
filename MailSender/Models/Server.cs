@@ -8,7 +8,7 @@ namespace MailSender.Models
     {
         public string Address { get; set; }
 
-        private int port;
+        private int port = 25;
         public int Port
         {
             get => port;
