@@ -52,7 +52,7 @@
                             </Button>
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
-                            <ComboBox MinWidth="120" MaxWidth="200"
+                            <ComboBox Name="cbSendersList" MinWidth="120" MaxWidth="200"
                                       ItemsSource="{x:Static data:TestData.Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="m:Sender">
@@ -80,8 +80,10 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей">
-                        <DataGrid ItemsSource="{x:Static data:TestData.Recipients}" AutoGenerateColumns="False"
-                                  GridLinesVisibility="Vertical" AlternatingRowBackground="BurlyWood"
+                        <DataGrid Name="dgRecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
+                                  AutoGenerateColumns="False"
+                                  GridLinesVisibility="Vertical"
+                                  AlternatingRowBackground="BurlyWood"
                                   VerticalGridLinesBrush="LightSteelBlue">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
@@ -107,7 +109,7 @@
                                         <Setter Property="Background" Value="LightYellow"/>
                                     </Style>
                                 </StackPanel.Resources>
-                                <Button Content="Отправить"/>
+                                <Button Content="Отправить" Click="SendButtonClick"/>
                                 <Button Content="Запланировать"/>
                             </StackPanel>
                         </StackPanel>
