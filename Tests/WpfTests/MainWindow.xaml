@@ -27,5 +27,6 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=HH:mm:ss.ff}"/>
     </Grid>
 </Window>
