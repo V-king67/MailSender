@@ -1,7 +1,4 @@
 ﻿using MailSender.ViewModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MailSender.ViewModels
 {
@@ -11,11 +8,7 @@ namespace MailSender.ViewModels
         public string Title
         {
             get => _title;
-            set
-            {
-                if (_title == value) return;
-                _title = value;
-                OnPropertyChanged("Title");            }
+            set => Set(ref _title, value);
         }
     }
 }
