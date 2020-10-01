@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:WpfTests.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}"
+        Topmost="{Binding IsChecked, ElementName=IsWindowTopMost}"
         Height="450" Width="500" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -27,6 +28,11 @@
                 </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=HH:mm:ss.ff}"/>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" 
+                   Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=HH:mm:ss.ff}"/>
+        <CheckBox Content="Включить таймер" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,0"
+                  IsChecked="{Binding TimerEnabled}"/>
+        <CheckBox Content="Top most" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190,0" Name="IsWindowTopMost"/>
+        <Button Content="Close window" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,58"/>
     </Grid>
 </Window>

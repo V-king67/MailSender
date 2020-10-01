@@ -25,6 +25,16 @@ namespace WpfTests.ViewModels
 
         public DateTime CurrentTime => DateTime.Now;
         private readonly Timer _timer;
+        private bool _timerEnabled = true;
+        public bool TimerEnabled
+        {
+            get => _timerEnabled;
+            set
+            {
+                if (!Set(ref _timerEnabled, value)) return;
+                _timer.Enabled = value;
+            }
+        }
 
         public MainWindowViewModel()
         {
