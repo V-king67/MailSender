@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTests"
         xmlns:vm="clr-namespace:WpfTests.ViewModels"
+        xmlns:commands="clr-namespace:WpfTests.Infrastructure.Commands"
         mc:Ignorable="d"
         Title="{Binding Title}"
         Topmost="{Binding IsChecked, ElementName=IsWindowTopMost}"
@@ -33,6 +34,11 @@
         <CheckBox Content="Включить таймер" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,0"
                   IsChecked="{Binding TimerEnabled}"/>
         <CheckBox Content="Top most" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190,0" Name="IsWindowTopMost"/>
-        <Button Content="Close window" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,58"/>
+        <Button Content="Close window" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,58">
+            <Button.Command>
+                <commands:CloseWindowCommand/>
+            </Button.Command>
+        </Button>
+        <Button Content="Hello world" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,58" Command="{Binding ShowDialogCommand}"/>
     </Grid>
 </Window>
