@@ -5,17 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfTests"
         mc:Ignorable="d"
-        Title="MainWindow" Height="360" Width="476">
+        Title="MainWindow" Height="450" Width="500" ResizeMode="NoResize">
     <Grid>
-        <Button Name="btnSend" Content="Отправить" HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="112" Margin="0,240,0,0" Click="BtnSendClick">
-            <Button.Effect>
-                <BlurEffect Radius="3" KernelType="Gaussian" RenderingBias="Performance"/>
-            </Button.Effect>
-        </Button>
-        <TextBox x:Name="tbLoginEdit" HorizontalAlignment="Left" Margin="66,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
-        <PasswordBox x:Name="pbPasswordEdit" HorizontalAlignment="Left" Margin="279,154,0,0" VerticalAlignment="Top" Width="160"/>
-        <TextBlock HorizontalAlignment="Left" Margin="66,136,0,0" Text="Имя пользователя" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Label Content="Пароль" HorizontalAlignment="Left" Margin="348,126,0,0" VerticalAlignment="Top"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="5,0,0,0">
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Адрес SMTP-сервера" TextWrapping="Wrap"/>
+            <ComboBox Name="cbServerSelect" HorizontalAlignment="Left" Margin="5,5" Width="160" AllowDrop="True">
+                <ComboBoxItem>smtp.yandex.ru</ComboBoxItem>
+                <ComboBoxItem>smtp.mail.ru</ComboBoxItem>
+                <ComboBoxItem>smtp.gmail.com</ComboBoxItem>
+            </ComboBox>
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Порт" TextWrapping="Wrap"/>
+            <TextBox Name="tbPortEdit" HorizontalAlignment="Left" Margin="5,5" Width="80" Text="25"/>
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Имя пользователя" TextWrapping="Wrap"/>
+            <TextBox Name="tbLoginEdit" HorizontalAlignment="Left" Margin="5,5" Width="160"/>
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Пароль" VerticalAlignment="Top"/>
+            <PasswordBox Name="pbPasswordEdit" HorizontalAlignment="Left" Margin="5,5" Width="160"/>
+            <Button Name="btnLogin" HorizontalAlignment="Left" Padding="15, 5" Margin="5,5" Click="BtnLoginClick">Войти</Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="0,0,5,0">
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Адрес получателя" TextWrapping="Wrap"/>
+            <TextBox Name="tbRecipientEdit" HorizontalAlignment="Left" Margin="5,5" Width="200"/>
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Заголовок письма" TextWrapping="Wrap"/>
+            <TextBox Name="tbMailSubjectEdit" HorizontalAlignment="Left" Margin="5,5" Width="280"/>
+            <TextBlock HorizontalAlignment="Left" Margin="5,5" Text="Текст письма" TextWrapping="Wrap"/>
+            <TextBox Name="tbMailBodyEdit" HorizontalAlignment="Left" Margin="5,5" TextWrapping="NoWrap" Width="280" Height="200"/>
+            <Button Name="btnSend" HorizontalAlignment="Center" Padding="15, 5" Margin="5,5" Click="BtnSendClick">Отправить</Button>
+        </StackPanel>
     </Grid>
 </Window>
