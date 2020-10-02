@@ -40,7 +40,8 @@
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера" Band="0">
                             <ComboBox Name="cbServersList" MinWidth="120" MaxWidth="200"
-                                      ItemsSource="{x:Static data:TestData.Servers}"
+                                      ItemsSource="{Binding Servers}"
+                                      SelectedItem="{Binding SelectedServer}"
                                       DisplayMemberPath="Address"/>
                             <Button ToolTip="Добавить">
                                 <Image Source="Media/Add.png" Height="12"/>
@@ -54,7 +55,8 @@
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
                             <ComboBox Name="cbSendersList" MinWidth="120" MaxWidth="200"
-                                      ItemsSource="{x:Static data:TestData.Senders}">
+                                      ItemsSource="{Binding Senders}"
+                                      SelectedItem="{Binding SelectedSender}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="m:Sender">
                                         <StackPanel Orientation="Horizontal">
@@ -81,7 +83,9 @@
                         </ToolBar>
                     </ToolBarTray>
                     <GroupBox Header="Список получателей">
-                        <DataGrid Name="dgRecipientsList" ItemsSource="{x:Static data:TestData.Recipients}"
+                        <DataGrid Name="dgRecipientsList"
+                                  ItemsSource="{Binding Recipients}"
+                                  SelectedItem="{Binding SelectedRecipient}"
                                   AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   AlternatingRowBackground="BurlyWood"
@@ -206,7 +210,10 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Список писем">
-                        <ListBox Name="lbMessagesList" ItemsSource="{x:Static data:TestData.Messages}" DisplayMemberPath="Subject"/>
+                        <ListBox Name="lbMessagesList"
+                                 ItemsSource="{Binding Messages}"
+                                 SelectedItem="{Binding SelectedMessage}"
+                                 DisplayMemberPath="Subject"/>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Редактор">
                         <DockPanel>
