@@ -43,15 +43,16 @@
                                       ItemsSource="{Binding Servers}"
                                       SelectedItem="{Binding SelectedServer}"
                                       DisplayMemberPath="Address"/>
-                            <Button ToolTip="Добавить">
-                                <Image Source="Media/Add.png" Height="12"/>
+                            <Button ToolTip="Добавить" Command="{Binding CreateNewServerCommand}">
+                                <fa:ImageAwesome Icon="Solid_Plus" Height="12" Foreground="Green"/>
                             </Button>
-                            <Button>
-                                <Image Source="Media/Edit.png" Height="12"/>
-                            </Button>
-                            <Button>
-                                <Image Source="Media/Delete.png" Height="12"/>
-                            </Button>
+                            <Button ToolTip="Изменить"
+                                    fa:Awesome.Content="Solid_Edit" Foreground="Brown"
+                                    Command="{Binding EditServerCommand}"
+                                    CommandParameter="{Binding SelectedServer}"/>
+                            <Button ToolTip="Удалить"
+                                    fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
+                                    Command="{Binding DeleteServerCommand}"/>
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
                             <ComboBox Name="cbSendersList" MinWidth="120" MaxWidth="200"
