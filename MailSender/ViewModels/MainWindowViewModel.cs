@@ -1,5 +1,6 @@
 ﻿using MailSender.Data;
 using MailSender.Infrastructure.Commands;
+using MailSender.lib.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         string _title = "Тестовое окно";
+        readonly IMailService _mailService;
         public string Title
         {
             get => _title;
@@ -46,8 +48,9 @@ namespace MailSender.ViewModels
         }
         #endregion
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IMailService mailService)
         {
+            _mailService = mailService;
             Servers = new ObservableCollection<Server>(TestData.Servers);
             Senders = new ObservableCollection<Sender>(TestData.Senders);
             Recipients = new ObservableCollection<Recipient>(TestData.Recipients);
@@ -123,6 +126,28 @@ namespace MailSender.ViewModels
             Servers.Remove(server);
             SelectedServer = Servers.FirstOrDefault();
             //MessageBox.Show($"Удаление сервера {server.Address}", "Управление серверами");
+        }
+        #endregion
+
+        #region SendMailCommand
+        ICommand _sendMailCommand;
+        public ICommand SendMailCommand => _sendMailCommand
+            ??= new LambdaCommand(OnSendMailCommandExecuted, CanSendMailCommandExecute);
+
+        private bool CanSendMailCommandExecute(object p)
+        {
+            if (SelectedServer is null || SelectedSender is null || SelectedRecipient is null || SelectedMessage is null) return false;
+            return true;
+        }
+        private void OnSendMailCommandExecuted(object p)
+        {
+            var server = SelectedServer;
+            var sender = SelectedSender;
+            var recipient = SelectedRecipient;
+            var message = SelectedMessage;
+
+            var mailSender = _mailService.GetSender(server.Address, server.Port, server.UseSSl, server.Login, server.Password);
+            mailSender.Send(sender.Address, recipient.Address, message.Subject, message.Body);
         }
         #endregion
 
