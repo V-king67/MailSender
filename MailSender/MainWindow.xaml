@@ -85,7 +85,12 @@
                         </ToolBar>
                     </ToolBarTray>
                     <Grid>
-                        <v:RecipientsView/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="2.3*"/>
+                        </Grid.ColumnDefinitions>
+                        <v:RecipientsView Grid.Column="0"/>
+                        <v:RecipientEditor Grid.Column="1"/>
                     </Grid>
                 </DockPanel>
             </TabItem>
