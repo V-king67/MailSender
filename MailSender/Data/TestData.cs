@@ -1,9 +1,7 @@
-﻿using MailSender.Models;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
+﻿using MailSender.lib.Models;
 using MailSender.lib.Service;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MailSender.Data
 {

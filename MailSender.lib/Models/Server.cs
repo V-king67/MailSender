@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MailSender.lib.Models.Base;
+using System;
 
-namespace MailSender.Models
+namespace MailSender.lib.Models
 {
-    class Server
+    public class Server : Entity
     {
         public string Address { get; set; }
 

@@ -1,8 +1,5 @@
 ﻿using MailSender.lib.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace MailSender.lib.Service
 {
@@ -44,5 +41,5 @@ namespace MailSender.lib.Service
         }
     }
 
-    
+
 }

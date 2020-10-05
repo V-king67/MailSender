@@ -1,9 +1,8 @@
 ﻿using MailSender.lib.Interfaces;
 using System;
-using System.Security.Cryptography;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MailSender.lib.Service
 {
@@ -56,7 +55,7 @@ namespace MailSender.lib.Service
         {
             var algorithm = GetEncryptAlgorithm(password);
             using (var stream = new MemoryStream())
-            using (var cryptoStream = new CryptoStream(stream, algorithm, CryptoStreamMode.Write)) 
+            using (var cryptoStream = new CryptoStream(stream, algorithm, CryptoStreamMode.Write))
             {
                 cryptoStream.Write(data, 0, data.Length);
                 cryptoStream.FlushFinalBlock();
