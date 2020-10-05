@@ -15,7 +15,7 @@ namespace ConsoleTests
             message.Subject = "Заголовок письма от " + DateTime.Now;
             message.Body = "Текст тестового письма";
 
-            var client = new SmtpClient("smtp.yandex.ru", 587);
+            var client = new SmtpClient("smtp.yandex.ru", 25);
             client.EnableSsl = true;
 
             client.Credentials = new NetworkCredential
@@ -25,8 +25,6 @@ namespace ConsoleTests
             };
 
             client.Send(message);
-
-            Console.WriteLine("Hello World!");
         }
     }
 }
