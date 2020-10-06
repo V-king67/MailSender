@@ -16,6 +16,22 @@
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="5"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Right" Text="!"
+                                   Foreground="Red"
+                                   FontSize="18" FontWeight="Bold"
+                                   Margin="3,0" VerticalAlignment="Center"
+                                   ToolTip="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=ErrorVisualElement}"/>
+                                <Border Padding="1" BorderBrush="Red" BorderThickness="3" CornerRadius="3">
+                                    <AdornedElementPlaceholder Name="ErrorVisualElement"/>
+                                </Border>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -35,9 +51,9 @@
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Address: "/>
         
         <TextBox Grid.Column="1" Grid.Row="0"
-                 Text="{Binding SelectedRecipient.Id, NotifyOnValidationError=True}"/>
+                 Text="{Binding SelectedRecipient.Id, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="1" Grid.Row="1"
-                 Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, ValidatesOnExceptions=True}"/>
+                 Text="{Binding SelectedRecipient.Name, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="1" Grid.Row="2">
             <TextBox.Text>
                 <Binding Path="SelectedRecipient.Address" NotifyOnValidationError="True" UpdateSourceTrigger="PropertyChanged">
