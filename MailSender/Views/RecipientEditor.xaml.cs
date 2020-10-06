@@ -11,7 +11,7 @@ namespace MailSender.Views
 
         private void OnDataValidationError(object sender, ValidationErrorEventArgs e)
         {
-            var control = (Control)sender;
+            var control = (Control)e.OriginalSource;
             if (e.Action == ValidationErrorEventAction.Added)
                 control.ToolTip = e.Error.ErrorContent.ToString();
             else control.ClearValue(ToolTipProperty);
