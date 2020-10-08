@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MailSender.Infrastructure.Commands.Base;
 using System.Linq;
-using System.Text;
 using System.Windows;
-using MailSender.Infrastructure.Commands.Base;
 
 namespace MailSender.Infrastructure.Commands
 {
