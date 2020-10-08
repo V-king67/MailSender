@@ -39,6 +39,12 @@ namespace ConsoleTests
 
             Console.WriteLine("Основной поток работу завершил!");
             Console.ReadLine();
+            Console.WriteLine("Останавливаю время...");
+
+            //Алгоритм остановки потока
+            __timerWorking = false;
+            if (!timerThread.Join(100))
+                timerThread.Interrupt();
         }
 
         static void PrintMessage(string message, int count)
@@ -51,10 +57,11 @@ namespace ConsoleTests
             }
         }
 
+        static bool __timerWorking = true;
         static void TimerMethod()
         {
             PrintThreadInfo();
-            while (true)
+            while (__timerWorking)
             {
                 Console.Title = DateTime.Now.ToString("HH:mm:ss.ff");
                 Thread.Sleep(500);
