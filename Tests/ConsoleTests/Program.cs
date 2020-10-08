@@ -16,9 +16,37 @@ namespace ConsoleTests
             timerThread.IsBackground = true;
             timerThread.Start();
 
-            for (int i = 0; i < 100; i++)
+            var message = "Hello world!";
+            var count = 10;
+
+            var printTask = new PrintMessageTask(message, count);
+            printTask.Start(); //Передача информации в поток с использованием ООП
+
+            //new Thread(() => PrintMessage(message, count)) { IsBackground = true }.Start();
+
+            //var printerThread = new Thread(PrintMessage)
+            //{
+            //    IsBackground = true,
+            //    Name = "Parameter printer"
+            //};
+            //printerThread.Start("Hello world!");
+
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    Console.WriteLine(i);
+            //    Thread.Sleep(10);
+            //}
+
+            Console.WriteLine("Основной поток работу завершил!");
+            Console.ReadLine();
+        }
+
+        static void PrintMessage(string message, int count)
+        {
+            PrintThreadInfo();
+            for (int i = 0; i < count; i++)
             {
-                Console.WriteLine(i);
+                Console.WriteLine("id: {0}\t{1}", Thread.CurrentThread.ManagedThreadId, message);
                 Thread.Sleep(10);
             }
         }
@@ -37,6 +65,36 @@ namespace ConsoleTests
         {
             var thread = Thread.CurrentThread;
             Console.WriteLine("id: {0} name: {1} priority: {2}", thread.ManagedThreadId, thread.Name, thread.Priority);
+        }
+    }
+
+    class PrintMessageTask
+    {
+        string _message;
+        int _count;
+        Thread _thread;
+
+        public PrintMessageTask(string message, int count)
+        {
+            _message = message;
+            _count = count;
+            _thread = new Thread(ThreadMethod) { IsBackground = true };
+        }
+
+        public void Start()
+        {
+            if(_thread?.IsAlive == false)
+            _thread?.Start();
+        }
+
+        void ThreadMethod()
+        {
+            for (int i = 0; i < _count; i++)
+            {
+                Console.WriteLine("id: {0}\t{1}", Thread.CurrentThread.ManagedThreadId, _message);
+                Thread.Sleep(10);
+            }
+            _thread = null;
         }
     }
 }
