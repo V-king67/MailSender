@@ -33,6 +33,17 @@ namespace ConsoleTests
             starter.Set(); //запускает первый из остановленных с помощью WaitOne потоков
 
             Console.ReadLine();
+
+            //Мьютексы и семафоры
+
+            //var mutex1 = new Mutex(true, "Test mutex", out var created1);
+            //var mutex2 = new Mutex(true, "Test mutex", out var created2);
+            //mutex1.WaitOne();
+            //mutex1.ReleaseMutex();
+
+            //var semaphore = new Semaphore(0, 10); //mutex == semaphore(0,1)
+            //semaphore.WaitOne();
+            //semaphore.Release();
         }
 
         private static void LockSyncTest()
