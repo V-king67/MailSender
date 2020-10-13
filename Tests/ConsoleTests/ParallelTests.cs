@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleTests
 {
-    class ParallelTests
+    static class ParallelTests
     {
         public static void Start()
         {

@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace ConsoleTests
 {
-    class ThreadPoolTests
+    static class ThreadPoolTests
     {
         public static void Start()
         {

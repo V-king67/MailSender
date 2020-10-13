@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleTests
 {
-    class TaskTests
+    static class TaskTests
     {
         public static void Start(int switcher)
         {
@@ -57,14 +57,13 @@ namespace ConsoleTests
     {
         private readonly Thread _calculationThread;
         private int _result;
-        private bool _isCompleted;
 
-        public bool IsCompleted => _isCompleted;
+        public bool IsCompleted { get; private set; }
         public int Result
         {
             get
             {
-                if (!_isCompleted)
+                if (!IsCompleted)
                     _calculationThread.Join();
                 return _result;
             }
@@ -75,7 +74,7 @@ namespace ConsoleTests
             _calculationThread = new Thread(() =>
             {
                 _result = calculation();
-                _isCompleted = true;
+                IsCompleted = true;
             })
             { IsBackground = true };
         }

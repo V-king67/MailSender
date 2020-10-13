@@ -11,9 +11,11 @@ namespace ConsoleTests
             var mainThreadId = mainThread.ManagedThreadId;
             mainThread.Name = "Основной поток";
 
-            var timerThread = new Thread(TimerMethod);
-            timerThread.Name = "Поток часов";
-            timerThread.IsBackground = true;
+            var timerThread = new Thread(TimerMethod)
+            {
+                Name = "Поток часов",
+                IsBackground = true
+            };
             timerThread.Start();
 
             var message = "Hello world!";
