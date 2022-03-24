@@ -10,8 +10,8 @@ namespace MailSender
 {
     public partial class App : Application
     {
-        static IHost _hosting;
-        public static IHost Hosting => _hosting
+        static IHost __hosting;
+        public static IHost Hosting => __hosting
             ??= Host.CreateDefaultBuilder(Environment.GetCommandLineArgs())
             .ConfigureServices(ConfigureServices)
             .Build();

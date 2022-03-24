@@ -12,43 +12,17 @@ namespace MailSender.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        string _title = "Тестовое окно";
         readonly IMailService _mailService;
 
         public StatisticViewModel Statistic { get; } = new StatisticViewModel();
+
+        string _title = "Тестовое окно";
+
         public string Title
         {
             get => _title;
             set => Set(ref _title, value);
         }
-
-        ObservableCollection<Server> _servers;
-        ObservableCollection<Sender> _senders;
-        ObservableCollection<Recipient> _recipients;
-        ObservableCollection<Message> _messages;
-
-        #region Свойства коллекций
-        public ObservableCollection<Server> Servers
-        {
-            get => _servers;
-            set => Set(ref _servers, value);
-        }
-        public ObservableCollection<Sender> Senders
-        {
-            get => _senders;
-            set => Set(ref _senders, value);
-        }
-        public ObservableCollection<Recipient> Recipients
-        {
-            get => _recipients;
-            set => Set(ref _recipients, value);
-        }
-        public ObservableCollection<Message> Messages
-        {
-            get => _messages;
-            set => Set(ref _messages, value);
-        }
-        #endregion
 
         public MainWindowViewModel(IMailService mailService)
         {
@@ -59,27 +33,61 @@ namespace MailSender.ViewModels
             Messages = new ObservableCollection<Message>(TestData.Messages);
         }
 
-        Server _selectedServer;
-        Sender _selectedSender;
-        Recipient _selectedRecipient;
-        Message _selectedMessage;
+        #region Коллекции
 
-        #region Свойства выбранных элементов
+        ObservableCollection<Server> _servers;
+        public ObservableCollection<Server> Servers
+        {
+            get => _servers;
+            set => Set(ref _servers, value);
+        }
+
+        ObservableCollection<Sender> _senders;
+        public ObservableCollection<Sender> Senders
+        {
+            get => _senders;
+            set => Set(ref _senders, value);
+        }
+
+        ObservableCollection<Recipient> _recipients;
+        public ObservableCollection<Recipient> Recipients
+        {
+            get => _recipients;
+            set => Set(ref _recipients, value);
+        }
+
+        ObservableCollection<Message> _messages;
+        public ObservableCollection<Message> Messages
+        {
+            get => _messages;
+            set => Set(ref _messages, value);
+        }
+        #endregion
+
+        #region Выбранные элементы
+
+        Server _selectedServer;
         public Server SelectedServer
         {
             get => _selectedServer;
             set => Set(ref _selectedServer, value);
         }
+
+        Sender _selectedSender;
         public Sender SelectedSender
         {
             get => _selectedSender;
             set => Set(ref _selectedSender, value);
         }
+
+        Recipient _selectedRecipient;
         public Recipient SelectedRecipient
         {
             get => _selectedRecipient;
             set => Set(ref _selectedRecipient, value);
         }
+
+        Message _selectedMessage;
         public Message SelectedMessage
         {
             get => _selectedMessage;
@@ -151,7 +159,7 @@ namespace MailSender.ViewModels
             var mailSender = _mailService.GetSender(server.Address, server.Port, server.UseSSl, server.Login, server.Password);
             mailSender.Send(sender.Address, recipient.Address, message.Subject, message.Body);
 
-            Statistic.MessageSended();
+            Statistic.MessageSent();
         }
         #endregion
 

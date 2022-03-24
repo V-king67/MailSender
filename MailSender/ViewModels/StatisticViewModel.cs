@@ -12,6 +12,6 @@ namespace MailSender.ViewModels
         public int SendMessagesCount { get => _sendMessagesCount; private set => Set(ref _sendMessagesCount, value); }
         #endregion
 
-        public void MessageSended() => SendMessagesCount++;
+        public void MessageSent() => SendMessagesCount++;
     }
 }
