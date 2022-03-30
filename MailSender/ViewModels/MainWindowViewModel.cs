@@ -27,10 +27,6 @@ namespace MailSender.ViewModels
         public MainWindowViewModel(IMailService mailService)
         {
             _mailService = mailService;
-            Servers = new ObservableCollection<Server>(TestData.Servers);
-            Senders = new ObservableCollection<Sender>(TestData.Senders);
-            Recipients = new ObservableCollection<Recipient>(TestData.Recipients);
-            Messages = new ObservableCollection<Message>(TestData.Messages);
         }
 
         #region Коллекции
@@ -96,6 +92,32 @@ namespace MailSender.ViewModels
         #endregion
 
         #region Команды
+
+        #region LoadDataCommand
+        ICommand _LoadDataCommand;
+        public ICommand LoadDataCommand => _LoadDataCommand
+            ??= new LambdaCommand(OnLoadDataCommandExecuted);
+
+        private void OnLoadDataCommandExecuted(object p)
+        {
+            Servers = new ObservableCollection<Server>(TestData.Servers);
+            Senders = new ObservableCollection<Sender>(TestData.Senders);
+            Recipients = new ObservableCollection<Recipient>(TestData.Recipients);
+            Messages = new ObservableCollection<Message>(TestData.Messages);
+        }
+        #endregion
+
+        #region ShowAboutCommand
+        ICommand _ShowAboutCommand;
+        public ICommand ShowAboutCommand => _ShowAboutCommand
+            ??= new LambdaCommand(OnShowAboutCommandExecuted);
+
+        private void OnShowAboutCommandExecuted(object p)
+        {
+            MessageBox.Show("Программа отправки почты\nАвтор: Иван Яскевич", 
+                            "О программе", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        #endregion
 
         #region CreateNewServerCommand
         ICommand _createNewServerCommand;
