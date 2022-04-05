@@ -4,6 +4,7 @@ using MailSender.lib.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -13,6 +14,8 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         readonly IMailService _mailService;
+
+        static string __DataFileName = "Data\\TestData.xml";
 
         public StatisticViewModel Statistic { get; } = new StatisticViewModel();
 
@@ -100,10 +103,33 @@ namespace MailSender.ViewModels
 
         private void OnLoadDataCommandExecuted(object p)
         {
-            Servers = new ObservableCollection<Server>(TestData.Servers);
-            Senders = new ObservableCollection<Sender>(TestData.Senders);
-            Recipients = new ObservableCollection<Recipient>(TestData.Recipients);
-            Messages = new ObservableCollection<Message>(TestData.Messages);
+            var data = File.Exists(__DataFileName)
+                ? TestData.LoadFromXML(__DataFileName)
+                : new TestData();
+
+            Servers = new ObservableCollection<Server>(data.Servers);
+            Senders = new ObservableCollection<Sender>(data.Senders);
+            Recipients = new ObservableCollection<Recipient>(data.Recipients);
+            Messages = new ObservableCollection<Message>(data.Messages);
+        }
+        #endregion
+
+        #region SaveDataCommand
+        ICommand _SaveDataCommand;
+        public ICommand SaveDataCommand => _SaveDataCommand
+            ??= new LambdaCommand(OnSaveDataCommandExecuted);
+
+        private void OnSaveDataCommandExecuted(object p)
+        {
+            var data = new TestData
+            {
+                Servers = Servers.ToList(),
+                Senders = Senders.ToList(),
+                Recipients = Recipients.ToList(),
+                Messages = Messages.ToList()
+            };
+
+            data.SaveToXML(__DataFileName);
         }
         #endregion
 

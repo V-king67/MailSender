@@ -33,6 +33,8 @@
             <MenuItem Header="Сервис">
                 <MenuItem Header="Загрузить данные"
                           Command="{Binding LoadDataCommand}"/>
+                <MenuItem Header="Сохранить данные"
+                          Command="{Binding SaveDataCommand}"/>
             </MenuItem>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" Command="{Binding ShowAboutCommand}"/>
