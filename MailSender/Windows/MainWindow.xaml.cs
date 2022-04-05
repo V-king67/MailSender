@@ -3,7 +3,7 @@ using MailSender.Models;
 using System.Net.Mail;
 using System.Windows;
 
-namespace MailSender
+namespace MailSender.Windows
 {
     public partial class MainWindow : Window
     {

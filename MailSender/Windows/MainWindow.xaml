@@ -1,4 +1,4 @@
-﻿<Window x:Class="MailSender.MainWindow"
+﻿<Window x:Class="MailSender.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         xmlns:data="clr-namespace:MailSender.Data"
         xmlns:m="clr-namespace:MailSender.Models"
         xmlns:cmd="clr-namespace:MailSender.Infrastructure.Commands"
-        xmlns:local="clr-namespace:MailSender"
+        xmlns:local="clr-namespace:MailSender.Windows"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
@@ -66,7 +66,8 @@
                                     CommandParameter="{Binding SelectedServer}"/>
                             <Button ToolTip="Удалить"
                                     fa:Awesome.Content="Regular_TrashAlt" Foreground="Red"
-                                    Command="{Binding DeleteServerCommand}"/>
+                                    Command="{Binding DeleteServerCommand}"
+                                    CommandParameter="{Binding SelectedServer}"/>
                         </ToolBar>
                         <ToolBar Header="Отправители" Band="1">
                             <ComboBox Name="cbSendersList" MinWidth="120" MaxWidth="200"
