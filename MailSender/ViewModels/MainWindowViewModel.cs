@@ -4,6 +4,7 @@ using MailSender.lib.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
 using MailSender.Windows;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -154,14 +155,8 @@ namespace MailSender.ViewModels
         private bool CanCreateNewServerCommandExecute(object p) => true;
         private void OnCreateNewServerCommandExecuted(object p)
         {
-            if (!ServerEditDialog.Create(
-             out var name,
-             out var address,
-             out var port,
-             out var ssl,
-             out var description,
-             out var login,
-             out var password))
+            if (!ServerEditDialog.Create(out var name, out var address, out var port,
+                out var ssl, out var description, out var login, out var password))
                 return;
 
             var server = new Server
@@ -187,9 +182,31 @@ namespace MailSender.ViewModels
         private bool CanEditServerCommandExecute(object p) => p is Server || SelectedServer != null;
         private void OnEditServerCommandExecuted(object p)
         {
+            //throw new NotImplementedException("Коллекция не реагирует на изменение элемента, т.е. визуально не изменяется в списке, дописать, например, списочный класс наследник");
+
             var server = p as Server ?? SelectedServer;
             if (server is null) return;
-            MessageBox.Show($"Редактирование сервера {server.Address}", "Управление серверами");
+
+            var name = server.Name;
+            var address = server.Address;
+            var port = server.Port;
+            var ssl = server.UseSSL;
+            var description = server.Description;
+            var login = server.Login;
+            var password = server.Password;
+
+            if (!ServerEditDialog.ShowDialog("Редактирование сервера", ref name, ref address,
+                ref port, ref ssl, ref description, ref login, ref password))
+                return;
+            server.Name = name;
+            server.Address = address;
+            server.Port = port;
+            server.UseSSL = ssl;
+            server.Description = description;
+            server.Login = login;
+            server.Password = password;
+
+            SelectedServer = server;
         }
         #endregion
 
