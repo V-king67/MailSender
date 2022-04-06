@@ -6,6 +6,7 @@ namespace MailSender.Models
 {
     public class Server
     {
+        public string Name { get; set; }
         public string Address { get; set; }
 
         private int port = 25;
@@ -19,7 +20,8 @@ namespace MailSender.Models
                 port = value;
             }
         }
-        public bool UseSSl { get; set; }
+        public bool UseSSL { get; set; }
+        public string Description { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
 

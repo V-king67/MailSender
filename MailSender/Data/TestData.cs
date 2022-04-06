@@ -34,7 +34,7 @@ namespace MailSender.Data
                 Address = $"smtp.server{i}.ru",
                 Login = $"Login-{i}",
                 Password = TextEncoder.Encode($"Password-{i}"),
-                UseSSl = i % 2 == 0
+                UseSSL = i % 2 == 0
             }).ToList());
 
         public List<Message> Messages { get; set; } = new List<Message>(

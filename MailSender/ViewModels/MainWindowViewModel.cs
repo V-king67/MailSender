@@ -3,6 +3,7 @@ using MailSender.Infrastructure.Commands;
 using MailSender.lib.Interfaces;
 using MailSender.Models;
 using MailSender.ViewModels.Base;
+using MailSender.Windows;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -153,7 +154,28 @@ namespace MailSender.ViewModels
         private bool CanCreateNewServerCommandExecute(object p) => true;
         private void OnCreateNewServerCommandExecuted(object p)
         {
-            MessageBox.Show("Создание нового сервера", "Управление серверами");
+            if (!ServerEditDialog.Create(
+             out var name,
+             out var address,
+             out var port,
+             out var ssl,
+             out var description,
+             out var login,
+             out var password))
+                return;
+
+            var server = new Server
+            {
+                Name = name,
+                Address = address,
+                Port = port,
+                UseSSL = ssl,
+                Description = description,
+                Login = login,
+                Password = password
+            };
+
+            Servers.Add(server);
         }
         #endregion
 
@@ -204,7 +226,7 @@ namespace MailSender.ViewModels
             var recipient = SelectedRecipient;
             var message = SelectedMessage;
 
-            var mailSender = _mailService.GetSender(server.Address, server.Port, server.UseSSl, server.Login, server.Password);
+            var mailSender = _mailService.GetSender(server.Address, server.Port, server.UseSSL, server.Login, server.Password);
             mailSender.Send(sender.Address, recipient.Address, message.Subject, message.Body);
 
             Statistic.MessageSent();
