@@ -8,7 +8,7 @@ namespace MailSender.lib.Interfaces
     {
         ICollection<T> Items { get; }
 
-        void Load();
+        void Load(List<T> items);
 
         void SaveChanges();
     }
