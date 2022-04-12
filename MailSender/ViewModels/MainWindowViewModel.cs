@@ -1,10 +1,9 @@
 ﻿using MailSender.Data;
 using MailSender.Infrastructure.Commands;
 using MailSender.lib.Interfaces;
-using MailSender.Models;
+using MailSender.lib.Models;
 using MailSender.ViewModels.Base;
 using MailSender.Windows;
-using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -16,6 +15,10 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         readonly IMailService _mailService;
+        readonly IStorage<Server> _ServerStorage;
+        readonly IStorage<Sender> _SenderStorage;
+        readonly IStorage<Recipient> _RecipientStorage;
+        readonly IStorage<Message> _MessageStorage;
 
         static string __DataFileName = "Data\\TestData.xml";
 
@@ -29,9 +32,13 @@ namespace MailSender.ViewModels
             set => Set(ref _title, value);
         }
 
-        public MainWindowViewModel(IMailService mailService)
+        public MainWindowViewModel(IMailService mailService, IStorage<Server> serverStorage, IStorage<Sender> senderStorage, IStorage<Recipient> recipientStorage, IStorage<Message> messageStorage)
         {
             _mailService = mailService;
+            _ServerStorage = serverStorage;
+            _SenderStorage = senderStorage;
+            _RecipientStorage = recipientStorage;
+            _MessageStorage = messageStorage;
         }
 
         #region Коллекции
@@ -109,10 +116,15 @@ namespace MailSender.ViewModels
                 ? TestData.LoadFromXML(__DataFileName)
                 : new TestData();
 
-            Servers = new ObservableCollection<Server>(data.Servers);
-            Senders = new ObservableCollection<Sender>(data.Senders);
-            Recipients = new ObservableCollection<Recipient>(data.Recipients);
-            Messages = new ObservableCollection<Message>(data.Messages);
+            _ServerStorage.Load(data.Servers);
+            _SenderStorage.Load(data.Senders);
+            _RecipientStorage.Load(data.Recipients);
+            _MessageStorage.Load(data.Messages);
+
+            Servers = new ObservableCollection<Server>(_ServerStorage.Items);
+            Senders = new ObservableCollection<Sender>(_SenderStorage.Items);
+            Recipients = new ObservableCollection<Recipient>(_RecipientStorage.Items);
+            Messages = new ObservableCollection<Message>(_MessageStorage.Items);
         }
         #endregion
 

@@ -6,7 +6,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:data="clr-namespace:MailSender.Data"
-        xmlns:m="clr-namespace:MailSender.Models"
+        xmlns:m="clr-namespace:MailSender.lib.Models;assembly=MailSender.lib"
         xmlns:cmd="clr-namespace:MailSender.Infrastructure.Commands"
         xmlns:local="clr-namespace:MailSender.Windows"
         mc:Ignorable="d"

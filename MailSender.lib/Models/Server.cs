@@ -1,9 +1,8 @@
-﻿using MailSender.lib.Interfaces.Models;
-using System;
+﻿using System;
 
-namespace MailSender.Models
+namespace MailSender.lib.Models
 {
-    public class Server : IServer
+    public class Server
     {
         public string Name { get; set; }
         public string Address { get; set; }

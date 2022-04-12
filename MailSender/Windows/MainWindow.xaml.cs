@@ -1,7 +1,4 @@
-﻿using MailSender.lib;
-using MailSender.Models;
-using System.Net.Mail;
-using System.Windows;
+﻿using System.Windows;
 
 namespace MailSender.Windows
 {

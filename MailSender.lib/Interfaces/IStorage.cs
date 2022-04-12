@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace MailSender.lib.Interfaces
 {
@@ -8,7 +6,7 @@ namespace MailSender.lib.Interfaces
     {
         ICollection<T> Items { get; }
 
-        void Load(List<T> items);
+        void Load(ICollection<T> items);
 
         void SaveChanges();
     }

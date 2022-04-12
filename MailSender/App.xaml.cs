@@ -1,4 +1,5 @@
 ﻿using MailSender.lib.Interfaces;
+using MailSender.lib.Models;
 using MailSender.lib.Service;
 using MailSender.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,12 @@ namespace MailSender
             services.AddTransient<IMailService, SmtpMailService>();
 
 #endif
+
+            var memoryStore = new DataStorageInMemory();
+            services.AddSingleton<IStorage<Server>>(memoryStore);
+            services.AddSingleton<IStorage<Sender>>(memoryStore);
+            services.AddSingleton<IStorage<Recipient>>(memoryStore);
+            services.AddSingleton<IStorage<Message>>(memoryStore);
 
             //services.AddScoped<>();
 
