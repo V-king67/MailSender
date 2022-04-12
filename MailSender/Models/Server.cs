@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MailSender.lib.Interfaces.Models;
+using System;
 
 namespace MailSender.Models
 {
-    public class Server
+    public class Server : IServer
     {
         public string Name { get; set; }
         public string Address { get; set; }

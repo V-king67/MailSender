@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MailSender.lib.Interfaces.Models;
 
 namespace MailSender.Models
 {
-    public class Message
+    public class Message : IMessage
     {
         public string Subject { get; set; }
         public string Body { get; set; }
