@@ -56,6 +56,8 @@ namespace MailSender.Windows
             name = window.ServerName.Text;
             address = window.ServerAddress.Text;
             port = int.Parse(window.ServerPort.Text);
+            useSSL = (bool)window.ServerSSL.IsChecked;
+            description = window.ServerDescription.Text;
             login = window.Login.Text;
             password = window.Password.Password;
             return true;
