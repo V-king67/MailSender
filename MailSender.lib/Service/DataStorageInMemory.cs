@@ -2,6 +2,7 @@
 using MailSender.lib.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace MailSender.lib.Service
 {
@@ -17,34 +18,49 @@ namespace MailSender.lib.Service
         ICollection<Sender> IStorage<Sender>.Items => Senders;
         ICollection<Server> IStorage<Server>.Items => Servers;
 
-
-        public void Load(ICollection<Message> messages)
+        public void Load()
         {
-            Debug.WriteLine("Вызвана процедура загрузки сообщений");
-
-            if (Messages is null || Messages.Count == 0)
-                Messages = messages;
-        }
-        public void Load(ICollection<Recipient> recipients)
-        {
-            Debug.WriteLine("Вызвана процедура загрузки получателей");
-
-            if (Recipients is null || Recipients.Count == 0)
-                Recipients = recipients;
-        }
-        public void Load(ICollection<Sender> senders)
-        {
-            Debug.WriteLine("Вызвана процедура загрузки отправителей");
+            Debug.WriteLine("Вызвана процедура загрузки данных");
 
             if (Senders is null || Senders.Count == 0)
-                Senders = senders;
-        }
-        public void Load(ICollection<Server> servers)
-        {
-            Debug.WriteLine("Вызвана процедура загрузки серверов");
+                Senders = new List<Sender>(
+                    Enumerable.Range(1, 10)
+                    .Select(i => new Sender
+                    {
+                        Name = $"Отправитель {i}",
+                        Address = $"Sender_{i}@server.ru"
+                    }).ToList());
+
+            if (Recipients is null || Recipients.Count == 0)
+                Recipients = new List<Recipient>(
+                    Enumerable.Range(1, 10)
+                    .Select(i => new Recipient
+                    {
+                        Name = $"Получатель {i}",
+                        Address = $"Recipient_{i}@server.ru"
+                    }).ToList());
 
             if (Servers is null || Servers.Count == 0)
-                Servers = servers;
+                Servers = new List<Server>(
+                    Enumerable.Range(1, 10)
+                    .Select(i => new Server
+                    {
+                        Name = $"Сервер #{i}",
+                        Address = $"smtp.server{i}.ru",
+                        Login = $"Login-{i}",
+                        Password = TextEncoder.Encode($"Password-{i}"),
+                        UseSSL = i % 2 == 0,
+                        Description = $"Описание сервера {i}"
+                    }).ToList());
+
+            if (Messages is null || Messages.Count == 0)
+                Messages = new List<Message>(
+                    Enumerable.Range(5, 30)
+                    .Select(i => new Message
+                    {
+                        Subject = $"Сообщение {i}",
+                        Body = $"Текст сообщения {i}"
+                    }).ToList());
         }
 
         public void SaveChanges()

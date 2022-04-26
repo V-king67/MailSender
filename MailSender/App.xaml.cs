@@ -29,11 +29,19 @@ namespace MailSender
 
 #endif
 
-            var memoryStore = new DataStorageInMemory();
-            services.AddSingleton<IStorage<Server>>(memoryStore);
-            services.AddSingleton<IStorage<Sender>>(memoryStore);
-            services.AddSingleton<IStorage<Recipient>>(memoryStore);
-            services.AddSingleton<IStorage<Message>>(memoryStore);
+            //var memoryStore = new DataStorageInMemory();
+            //services.AddSingleton<IStorage<Server>>(memoryStore);
+            //services.AddSingleton<IStorage<Sender>>(memoryStore);
+            //services.AddSingleton<IStorage<Recipient>>(memoryStore);
+            //services.AddSingleton<IStorage<Message>>(memoryStore);
+
+            const string dataFileName = "Data\\MailSenderStorage.xml";
+            var fileStorage = new DataStorageInXmlFile(dataFileName);
+            services.AddSingleton<IStorage<Server>>(fileStorage);
+            services.AddSingleton<IStorage<Sender>>(fileStorage);
+            services.AddSingleton<IStorage<Recipient>>(fileStorage);
+            services.AddSingleton<IStorage<Message>>(fileStorage);
+
 
             //services.AddScoped<>();
 

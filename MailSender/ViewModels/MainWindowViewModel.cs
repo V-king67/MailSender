@@ -20,8 +20,6 @@ namespace MailSender.ViewModels
         readonly IStorage<Recipient> _RecipientStorage;
         readonly IStorage<Message> _MessageStorage;
 
-        static string __DataFileName = "Data\\TestData.xml";
-
         public StatisticViewModel Statistic { get; } = new StatisticViewModel();
 
         string _title = "Тестовое окно";
@@ -112,14 +110,10 @@ namespace MailSender.ViewModels
 
         private void OnLoadDataCommandExecuted(object p)
         {
-            var data = File.Exists(__DataFileName)
-                ? TestData.LoadFromXML(__DataFileName)
-                : new TestData();
-
-            _ServerStorage.Load(data.Servers);
-            _SenderStorage.Load(data.Senders);
-            _RecipientStorage.Load(data.Recipients);
-            _MessageStorage.Load(data.Messages);
+            _ServerStorage.Load();
+            _SenderStorage.Load();
+            _RecipientStorage.Load();
+            _MessageStorage.Load();
 
             Servers = new ObservableCollection<Server>(_ServerStorage.Items);
             Senders = new ObservableCollection<Sender>(_SenderStorage.Items);
@@ -135,15 +129,10 @@ namespace MailSender.ViewModels
 
         private void OnSaveDataCommandExecuted(object p)
         {
-            var data = new TestData
-            {
-                Servers = Servers.ToList(),
-                Senders = Senders.ToList(),
-                Recipients = Recipients.ToList(),
-                Messages = Messages.ToList()
-            };
-
-            data.SaveToXML(__DataFileName);
+            _ServerStorage.SaveChanges();
+            _SenderStorage.SaveChanges();
+            _RecipientStorage.SaveChanges();
+            _MessageStorage.SaveChanges();
         }
         #endregion
 
@@ -182,6 +171,7 @@ namespace MailSender.ViewModels
                 Password = password
             };
 
+            _ServerStorage.Items.Add(server);
             Servers.Add(server);
         }
         #endregion
@@ -232,9 +222,9 @@ namespace MailSender.ViewModels
         {
             var server = p as Server ?? SelectedServer;
             if (server is null) return;
+            _ServerStorage.Items.Remove(server);
             Servers.Remove(server);
             SelectedServer = Servers.FirstOrDefault();
-            //MessageBox.Show($"Удаление сервера {server.Address}", "Управление серверами");
         }
         #endregion
 
