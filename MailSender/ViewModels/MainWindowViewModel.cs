@@ -148,6 +148,8 @@ namespace MailSender.ViewModels
         }
         #endregion
 
+        #region ServerCommands
+
         #region CreateNewServerCommand
         ICommand _createNewServerCommand;
         public ICommand CreateNewServerCommand => _createNewServerCommand
@@ -226,6 +228,68 @@ namespace MailSender.ViewModels
             Servers.Remove(server);
             SelectedServer = Servers.FirstOrDefault();
         }
+        #endregion
+
+        #endregion
+
+        #region SenderCommands
+
+        #region CreateSenderCommand
+        ICommand _CreateSenderCommand;
+        public ICommand CreateSenderCommand => _CreateSenderCommand
+            ??= new LambdaCommand(OnCreateSenderCommandExecuted);
+
+        private void OnCreateSenderCommandExecuted(object p)
+        {
+            if(!SenderEditDialog.Create(out var name, out var address)) return;
+
+            var sender = new Sender { Name = name, Address = address };
+            _SenderStorage.Items.Add(sender);
+            Senders.Add(sender);
+        }
+        #endregion
+
+        #region EditSenderCommand
+        ICommand _EditSenderCommand;
+        public ICommand EditSenderCommand => _EditSenderCommand
+            ??= new LambdaCommand(OnEditSenderCommandExecuted, CanEditSenderCommandExecute);
+
+        private bool CanEditSenderCommandExecute(object p) => p is Sender || SelectedSender != null;
+
+        private void OnEditSenderCommandExecuted(object p)
+        {
+            var sender = p as Sender ?? SelectedSender;
+            if (sender is null) return;
+
+            var name = sender.Name;
+            var address = sender.Address;
+
+            if (!SenderEditDialog.ShowDialog("Редактирование отправителя", ref name, ref address)) return;
+            sender.Address = address;
+            sender.Name = name;
+
+            SelectedSender = sender;
+        }
+        #endregion
+
+        #region DeleteSenderCommand
+        ICommand _DeleteSenderCommand;
+        public ICommand DeleteSenderCommand => _DeleteSenderCommand
+            ??= new LambdaCommand(OnDeleteSenderCommandExecuted, CanDeleteSenderCommandExecute);
+
+        private bool CanDeleteSenderCommandExecute(object p) => p is Sender || SelectedSender != null;
+
+        private void OnDeleteSenderCommandExecuted(object p)
+        {
+            var sender = p as Sender ?? SelectedSender;
+            if(sender is null) return;
+            _SenderStorage.Items.Remove(sender);
+            Senders.Remove(sender);
+            SelectedSender = Senders.FirstOrDefault();
+        }
+        #endregion
+
+
         #endregion
 
         #region SendMailCommand
