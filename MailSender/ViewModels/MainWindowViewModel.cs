@@ -289,6 +289,66 @@ namespace MailSender.ViewModels
         }
         #endregion
 
+        #endregion
+
+        #region RecipientCommands
+
+        #region CreateRecipientCommand
+        ICommand _CreateRecipientCommand;
+        public ICommand CreateRecipientCommand => _CreateRecipientCommand
+            ??= new LambdaCommand(OnCreateRecipientCommandExecuted);
+
+        private void OnCreateRecipientCommandExecuted(object p)
+        {
+            if (!RecipientEditDialog.Create(out var name, out var address, out var description)) return;
+
+            var recipient = new Recipient { Name = name, Address = address, Description = description };
+            _RecipientStorage.Items.Add(recipient);
+            Recipients.Add(recipient);
+        }
+        #endregion
+
+        #region EditRecipientCommand
+        ICommand _EditRecipientCommand;
+        public ICommand EditRecipientCommand => _EditRecipientCommand
+            ??= new LambdaCommand(OnEditRecipientCommandExecuted, CanEditRecipientCommandExecute);
+
+        private bool CanEditRecipientCommandExecute(object p) => p is Recipient || SelectedRecipient != null;
+
+        private void OnEditRecipientCommandExecuted(object p)
+        {
+            var recipient = p as Recipient ?? SelectedRecipient;
+            if (recipient is null) return;
+
+            var name = recipient.Name;
+            var address = recipient.Address;
+            var description = recipient.Description;
+
+            if (!RecipientEditDialog.ShowDialog("Редактирование получателя", ref name, ref address, ref description)) return;
+            recipient.Address = address;
+            recipient.Name = name;
+            recipient.Description = description;
+
+            SelectedRecipient = recipient;
+        }
+        #endregion
+
+        #region DeleteRecipientCommand
+        ICommand _DeleteRecipientCommand;
+        public ICommand DeleteRecipientCommand => _DeleteRecipientCommand
+            ??= new LambdaCommand(OnDeleteRecipientCommandExecuted, CanDeleteRecipientCommandExecute);
+
+        private bool CanDeleteRecipientCommandExecute(object p) => p is Recipient || SelectedRecipient != null;
+
+        private void OnDeleteRecipientCommandExecuted(object p)
+        {
+            var recipient = p as Recipient ?? SelectedRecipient;
+            if (recipient is null) return;
+            _RecipientStorage.Items.Remove(recipient);
+            Recipients.Remove(recipient);
+            SelectedRecipient = Recipients.FirstOrDefault();
+        }
+        #endregion
 
         #endregion
 

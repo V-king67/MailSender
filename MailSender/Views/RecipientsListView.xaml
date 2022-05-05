@@ -20,6 +20,7 @@
         </UniformGrid>
         <DataGrid Grid.Row="1" Name="RecipientsList" Margin="10"
                   ItemsSource="{Binding Recipients}"
+                  SelectedItem="{Binding SelectedRecipient}"
                   AutoGenerateColumns="False"
                   GridLinesVisibility="Vertical"
                   AlternatingRowBackground="PowderBlue"

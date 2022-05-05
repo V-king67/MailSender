@@ -36,8 +36,10 @@ namespace MailSender.lib.Service
                     Enumerable.Range(1, 10)
                     .Select(i => new Recipient
                     {
+                        Id = i,
                         Name = $"Получатель {i}",
-                        Address = $"Recipient_{i}@server.ru"
+                        Address = $"Recipient_{i}@server.ru",
+                        Description = $"Описание получателя {i}"
                     }).ToList());
 
             if (Servers is null || Servers.Count == 0)

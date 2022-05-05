@@ -91,11 +91,11 @@
                             <Button fa:Awesome.Content="Regular_Clock" Foreground="DarkCyan"/>
                         </ToolBar>
                         <ToolBar Header="Получатели" Band="1">
-                            <Button ToolTip="Добавить">
+                            <Button ToolTip="Добавить" Command="{Binding CreateRecipientCommand}">
                                 <fa:ImageAwesome Icon="Solid_Plus" Height="12" Foreground="Green"/>
                             </Button>
-                            <Button fa:Awesome.Content="Solid_Edit" Foreground="Brown" ToolTip="Редактировать"/>
-                            <Button fa:Awesome.Content="Regular_TrashAlt" Foreground="Red" ToolTip="Удалить"/>
+                            <Button fa:Awesome.Content="Solid_Edit" Foreground="Brown" ToolTip="Редактировать" Command="{Binding EditRecipientCommand}"/>
+                            <Button fa:Awesome.Content="Regular_TrashAlt" Foreground="Red" ToolTip="Удалить" Command="{Binding DeleteRecipientCommand}"/>
                         </ToolBar>
                     </ToolBarTray>
                     <views:RecipientsListView/>
