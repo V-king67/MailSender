@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MailSender.lib.Models.Base;
+using System;
+using System.ComponentModel;
 
 namespace MailSender.lib.Models
 {
@@ -6,7 +8,7 @@ namespace MailSender.lib.Models
     {
         private int id;
         public int Id 
-        { 
+        {
             get => id;
             set
             {

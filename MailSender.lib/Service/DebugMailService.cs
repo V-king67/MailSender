@@ -1,13 +1,16 @@
 ﻿using MailSender.lib.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace MailSender.lib.Service
 {
     public class DebugMailService : IMailService
     {
+        private readonly IEncryptorService _encryptorService;
+
+        public DebugMailService(IEncryptorService encryptorService)
+        {
+            _encryptorService = encryptorService;
+        }
         public IMailSender GetSender(string address, int port, bool useSSL, string login, string password)
         {
             return new DebugMailSender(address, port, useSSL, login, password);
@@ -38,5 +41,5 @@ namespace MailSender.lib.Service
         }
     }
 
-    
+
 }

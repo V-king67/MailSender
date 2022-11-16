@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MailSender.lib.Models.Base;
+using System;
 
 namespace MailSender.lib.Models
 {

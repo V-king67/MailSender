@@ -1,6 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Net.Mail;
+﻿using MailSender.lib.Interfaces;
+using MailSender.lib.Service;
 
 namespace ConsoleTests
 {
@@ -8,23 +7,12 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            var to = new MailAddress("jaskev@yandex.ru", "Иван");
-            var from = new MailAddress("jaskev@yandex.ru", "Иван");
-            var message = new MailMessage(from, to);
+            IEncryptorService cryptor = new Rfc2898Encryptor();
+            var str = "Hello world!";
+            const string password = "MailSender!";
 
-            message.Subject = "Заголовок письма от " + DateTime.Now;
-            message.Body = "Текст тестового письма";
-
-            var client = new SmtpClient("smtp.yandex.ru", 25);
-            client.EnableSsl = true;
-
-            client.Credentials = new NetworkCredential
-            {
-                UserName = "user_name",
-                Password = "Password"
-            };
-
-            client.Send(message);
+            var cryptedStr = cryptor.Encrypt(str, password);
+            var decrypredStr = cryptor.Decrypt(cryptedStr, password);
         }
     }
 }
