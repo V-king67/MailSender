@@ -12,15 +12,6 @@ namespace WpfTests.ViewModels
     class MainWindowViewModel : ViewModel
     {
         string _title = "Тестовое окно";
-        ICommand _showDialogCommand;
-
-        public ICommand ShowDialogCommand => _showDialogCommand
-            ??= new LambdaCommand(OnShowDialogCommandExecuted);
-
-        private void OnShowDialogCommandExecuted(object p)
-        {
-            MessageBox.Show("Hello world!");
-        }
         public string Title
         {
             get => _title;
@@ -35,8 +26,19 @@ namespace WpfTests.ViewModels
             }*/
         }
 
+        #region ShowDialogCommand
+        ICommand _showDialogCommand;
+        public ICommand ShowDialogCommand => _showDialogCommand
+            ??= new LambdaCommand(OnShowDialogCommandExecuted);
+
+        private void OnShowDialogCommandExecuted(object p)
+        {
+            MessageBox.Show("Hello world!");
+        }
+        #endregion
         public DateTime CurrentTime => DateTime.Now;
         private readonly Timer _timer;
+
         private bool _timerEnabled = true;
         public bool TimerEnabled
         {

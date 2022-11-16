@@ -1,4 +1,5 @@
 ﻿using MailSender.lib.Interfaces;
+using MailSender.lib.Models;
 using MailSender.lib.Service;
 using MailSender.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +11,8 @@ namespace MailSender
 {
     public partial class App : Application
     {
-        static IHost _hosting;
-        public static IHost Hosting => _hosting
+        static IHost __hosting;
+        public static IHost Hosting => __hosting
             ??= Host.CreateDefaultBuilder(Environment.GetCommandLineArgs())
             .ConfigureServices(ConfigureServices)
             .Build();
@@ -28,6 +29,20 @@ namespace MailSender
 
 #endif
             services.AddSingleton<IEncryptorService, Rfc2898Encryptor>();
+
+            //var memoryStore = new DataStorageInMemory();
+            //services.AddSingleton<IStorage<Server>>(memoryStore);
+            //services.AddSingleton<IStorage<Sender>>(memoryStore);
+            //services.AddSingleton<IStorage<Recipient>>(memoryStore);
+            //services.AddSingleton<IStorage<Message>>(memoryStore);
+
+            const string dataFileName = "Data\\MailSenderStorage.xml";
+            var fileStorage = new DataStorageInXmlFile(dataFileName);
+            services.AddSingleton<IStorage<Server>>(fileStorage);
+            services.AddSingleton<IStorage<Sender>>(fileStorage);
+            services.AddSingleton<IStorage<Recipient>>(fileStorage);
+            services.AddSingleton<IStorage<Message>>(fileStorage);
+
 
             //services.AddScoped<>();
 

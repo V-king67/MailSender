@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace MailSender
+namespace MailSender.Windows
 {
     public partial class MainWindow : Window
     {

@@ -2,7 +2,7 @@
 
 namespace MailSender.lib.Models
 {
-    public class Message : Entity
+    public class Message
     {
         public string Subject { get; set; }
         public string Body { get; set; }
