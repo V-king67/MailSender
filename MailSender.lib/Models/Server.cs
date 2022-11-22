@@ -3,9 +3,8 @@ using System;
 
 namespace MailSender.lib.Models
 {
-    public class Server
+    public class Server : NamedEntity
     {
-        public string Name { get; set; }
         public string Address { get; set; }
 
         private int port = 25;

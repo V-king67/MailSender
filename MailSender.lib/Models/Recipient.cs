@@ -4,20 +4,17 @@ using System.ComponentModel;
 
 namespace MailSender.lib.Models
 {
-    public class Recipient
+    public class Recipient : Person
     {
-        private int id;
-        public int Id 
+        public new int Id
         {
-            get => id;
+            get => base.Id;
             set
             {
                 if (value < 0) throw new ArgumentOutOfRangeException(nameof(value), "Идентификатор не может быть меньше нуля");
-                id = value;
+                base.Id = value;
             }
         }
-        public string Name { get; set; }
-        public string Address { get; set; }
         public string Description { get; set; }
     }
 }
