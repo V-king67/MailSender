@@ -98,7 +98,14 @@
                             <Button fa:Awesome.Content="Regular_TrashAlt" Foreground="Red" ToolTip="Удалить" Command="{Binding DeleteRecipientCommand}"/>
                         </ToolBar>
                     </ToolBarTray>
-                    <views:RecipientsListView/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <views:RecipientsListView Grid.Column="0"/>
+                        <views:RecipientEditor Grid.Column="1"/>
+                    </Grid>
                 </DockPanel>
             </TabItem>
             <TabItem Header="Планировщик">
