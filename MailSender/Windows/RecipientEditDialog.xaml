@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MailSender.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
+        DataContext="{Binding RecipientEditModel, Source={StaticResource Locator}}"
         Title="Получатель почты" Width="260" Height="250">
     <DockPanel Margin="5">
         <DockPanel.Resources>
@@ -21,22 +22,21 @@
         <UniformGrid DockPanel.Dock="Bottom"
                      Rows="1"
                      HorizontalAlignment="Right"
-                     Margin="0,10,10,10"
-                     Button.Click="OnButtonClick">
-            <Button Content="OK" IsDefault="True"/>
+                     Margin="0,10,10,10">
+            <Button Content="OK" IsDefault="True" />
             <Button Content="Cancel" IsCancel="True"/>
         </UniformGrid>
         
         <GroupBox Header="Имя получателя" DockPanel.Dock="Top">
-            <TextBox Name="RecipientName" x:FieldModifier="private"/>
+            <TextBox Name="RecipientName" x:FieldModifier="private" Text="{Binding Recipient.Name}"/>
         </GroupBox>
         
         <GroupBox Header="Адрес получателя" DockPanel.Dock="Top">
-            <TextBox Name="RecipientAddress" x:FieldModifier="private"/>
+            <TextBox Name="RecipientAddress" x:FieldModifier="private" Text="{Binding Recipient.Address}"/>
         </GroupBox>
 
         <GroupBox Header="Описание">
-            <TextBox Name="RecipientDescription"/>
+            <TextBox Name="RecipientDescription" Text="{Binding Recipient.Description}"/>
         </GroupBox>
 
 

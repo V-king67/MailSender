@@ -300,11 +300,14 @@ namespace MailSender.ViewModels
 
         private void OnCreateRecipientCommandExecuted(object p)
         {
-            if (!RecipientEditDialog.Create(out var name, out var address, out var description)) return;
-
-            var recipient = new Recipient { Name = name, Address = address, Description = description };
-            _RecipientStorage.Items.Add(recipient);
-            Recipients.Add(recipient);
+            //TODO вызов диалога RecipientEdit
+            var dialog = new RecipientEditDialog();
+            if ((bool)dialog.ShowDialog())
+            {
+                var recipient = (dialog.DataContext as RecipientEditWindowViewModel).Recipient;
+                _RecipientStorage.Items.Add(recipient);
+                Recipients.Add(recipient);
+            }
         }
         #endregion
 
@@ -324,7 +327,7 @@ namespace MailSender.ViewModels
             var address = recipient.Address;
             var description = recipient.Description;
 
-            if (!RecipientEditDialog.ShowDialog("Редактирование получателя", ref name, ref address, ref description)) return;
+            //TODO вызов диалога RecipientEdit
             recipient.Address = address;
             recipient.Name = name;
             recipient.Description = description;

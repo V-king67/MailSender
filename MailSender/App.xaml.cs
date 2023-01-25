@@ -21,6 +21,7 @@ namespace MailSender
         private static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
             services.AddSingleton<MainWindowViewModel>();
+            services.AddTransient<RecipientEditWindowViewModel>();
 
 #if DEBUG
             services.AddTransient<IMailService, DebugMailService>();
