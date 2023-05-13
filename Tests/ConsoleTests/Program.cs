@@ -34,6 +34,9 @@ namespace ConsoleTests
             var printTask = new PrintMessageTask("Message from class", count);
             printTask.Start();
 
+            //Поток в производном классе
+            var greeting = new GreetingTask("Greeter");
+            greeting.Start();
 
             /*for (int i = 0; i < 500; i++)
             {
@@ -117,6 +120,44 @@ namespace ConsoleTests
             }
 
             thread = null; //Повторный запуск невозможен
+        }
+    }
+
+    //Пробую обобщить в абстрактный класс
+    abstract class EncasedThread
+    {
+        protected Thread Thread { get; set; }
+
+        public EncasedThread()
+        {
+            Thread = new Thread(ThreadMethod);
+        }
+
+        public void Start()
+        {
+            if (Thread?.IsAlive == false)
+                Thread?.Start();
+        }
+
+        protected abstract void ThreadMethod();
+    }
+
+    class GreetingTask : EncasedThread
+    {
+        private string yourName;
+
+        public GreetingTask(string threadName) : base()
+        {
+            Thread.Name = threadName;
+        }
+
+        protected override void ThreadMethod()
+        {
+            Console.WriteLine("Thread {0} started", Thread.Name);
+            Console.Write("Insert your name: ");
+            yourName = Console.ReadLine();
+            Console.WriteLine("Hello, {0}", yourName);
+            Console.WriteLine("Thread {0} finished", Thread.Name);
         }
     }
 }
