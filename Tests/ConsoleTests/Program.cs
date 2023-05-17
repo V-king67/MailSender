@@ -14,7 +14,7 @@ namespace ConsoleTests
 
             var timerThread = new Thread(Timer)
             {
-                IsBackground = true, //Поток завершится по завершении главного потока
+                IsBackground = true,        //Поток завершится по завершении главного потока
                 Name = "Timer"
             };
             timerThread.Start();
@@ -24,7 +24,7 @@ namespace ConsoleTests
                 IsBackground = true,
                 Name = "Parameter printer"
             };
-            printerThread.Start("Hello world!"); //Для методов с одним параметром, параметр передается в метод Start(parameter)
+            printerThread.Start("Hello world!");        //Для методов с одним параметром, параметр передается в метод Start(parameter)
 
             var message = "Hello world~!";
             var count = 10;
@@ -46,17 +46,28 @@ namespace ConsoleTests
 
             Console.WriteLine("Главный поток работу закончил!");
             Console.ReadLine();
+
+            Console.WriteLine("Останавливаю время...");
+
+            //Алгоритм остановки потока
+            timerWork = false;
+            if (!timerThread.Join(100))       //Основной поток приостанавливается, пока вызывающий не закончит работу (или не выйдет кол-во времени в параметре)
+                timerThread.Interrupt();
+
+            Console.ReadLine();
         }
 
+
+        static bool timerWork = true;       //флаг для остановки потока
         static void Timer()
         {
             Console.WriteLine("Поток, обрабатывающий таймер: ");
             PrintThreadInfo();
-            while (true)
+            while (timerWork)
             {
                 Console.Title = DateTime.Now.ToString("HH:mm:ss.ffff");
                 Thread.Sleep(100);
-                //Thread.SpinWait(10); //Используется на малое время чтобы поток подождал, не приостанавливает поток
+                //Thread.SpinWait(10);      //Используется на малое время чтобы поток подождал, не приостанавливает поток
             }
         }
 
@@ -119,14 +130,14 @@ namespace ConsoleTests
                 Thread.Sleep(10);
             }
 
-            thread = null; //Повторный запуск невозможен
+            thread = null;      //Повторный запуск невозможен
         }
     }
 
     //Пробую обобщить в абстрактный класс
     abstract class EncasedThread
     {
-        protected Thread Thread { get; set; }
+        public Thread Thread { get; set; }
 
         public EncasedThread()
         {
