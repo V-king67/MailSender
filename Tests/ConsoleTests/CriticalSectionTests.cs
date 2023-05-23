@@ -37,5 +37,21 @@ namespace ConsoleTests
 
         static readonly object __SyncRoot = new object();
 
+
+        /// <summary>
+        /// Что происходит внутри конструкции lock
+        /// </summary>
+        static void LockUnfolded()
+        {
+            Monitor.Enter(__SyncRoot);
+            try
+            {
+                //Здесь код
+            }
+            finally
+            {
+                Monitor.Exit(__SyncRoot);
+            }
+        }
     }
 }
