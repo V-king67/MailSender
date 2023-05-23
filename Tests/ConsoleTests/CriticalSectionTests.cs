@@ -23,11 +23,19 @@ namespace ConsoleTests
         {
             for (int i = 0; i < count; i++)
             {
-                Console.Write("Thread id: {0}", Thread.CurrentThread.ManagedThreadId);
-                Console.Write("\t");
-                Console.Write(message);
-                Console.WriteLine();
+                lock (__SyncRoot) //Обеспечивает непрерывное выполнение фрагмента кода внутри потока
+                {
+                    Console.Write("Thread id: {0}", Thread.CurrentThread.ManagedThreadId);
+                    Console.Write("\t");
+                    Console.Write(message);
+                    Console.WriteLine(); 
+                }
             }
         }
+
+        //Обертка для конструкции Lock - статическое поле ссылочного типа
+
+        static readonly object __SyncRoot = new object();
+
     }
 }
