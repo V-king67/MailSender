@@ -8,7 +8,8 @@ namespace ConsoleTests
     {
         static void Main(string[] args)
         {
-            ThreadsTests.TestStart();
+            //ThreadsTests.TestStart();
+            CriticalSectionTests.Start();
 
             Console.WriteLine("Главный поток работу закончил!");
             Console.ReadLine();
