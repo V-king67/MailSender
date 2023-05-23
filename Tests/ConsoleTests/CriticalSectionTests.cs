@@ -9,6 +9,12 @@ namespace ConsoleTests
     {
         public static void Start()
         {
+            //LockSyncTest();
+            EventWaitTest();
+        }
+
+        static void LockSyncTest()
+        {
             var threads = new Thread[10];
             for (int i = 0; i < threads.Length; i++)
             {
@@ -52,6 +58,34 @@ namespace ConsoleTests
             {
                 Monitor.Exit(__SyncRoot);
             }
+        }
+
+
+        static void EventWaitTest()
+        {
+            var manualResetEvent = new ManualResetEvent(false); //Чтобы сбросить сигнал, используется starter.Reset()
+            var autoResetEvent = new AutoResetEvent(false); //После каждого получения сигнала выпускает поток и сбрасывает сигнал в false
+
+            //Создаем переменную базового класса
+            EventWaitHandle starter = manualResetEvent;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var local_i = i;
+                new Thread(() =>
+                {
+                    Console.WriteLine("Поток {0} запущен", local_i);
+                    starter.WaitOne(); //Поток приостанавливается до получения сигнала
+                    starter.Reset();
+                    Console.WriteLine("Поток {0} завершил работу", local_i);
+                }).Start();
+            }
+
+            Console.WriteLine("Все потоки созданы и готовы к работе.");
+
+            Console.ReadLine();
+            starter.Set(); //Сигнал запуска потоков
+            Console.ReadLine();
         }
     }
 }
