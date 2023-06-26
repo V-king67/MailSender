@@ -9,7 +9,8 @@ namespace ConsoleTests
         static void Main(string[] args)
         {
             //ThreadsTests.TestStart();
-            CriticalSectionTests.Start();
+            //CriticalSectionTests.Start();
+            MutexTests.Start();
 
             Console.WriteLine("Главный поток работу закончил!");
             Console.ReadLine();

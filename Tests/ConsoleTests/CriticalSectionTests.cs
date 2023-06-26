@@ -87,5 +87,6 @@ namespace ConsoleTests
             starter.Set(); //Сигнал запуска потоков
             Console.ReadLine();
         }
+
     }
 }
