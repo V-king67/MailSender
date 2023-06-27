@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="{Binding Title}"
         Topmost="{Binding IsChecked, ElementName=IsWindowTopMost}"
-        Height="450" Width="500" ResizeMode="NoResize">
+        Height="350" Width="500" ResizeMode="NoResize">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -40,5 +40,7 @@
             </Button.Command>
         </Button>
         <Button Content="Hello world" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,58" Command="{Binding ShowDialogCommand}"/>
+        <Button Content="Compute" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="240,58,0,0" Click="ComputeButton_Click"/>
+        <TextBlock Text="Result" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="240,78,0,0" Name="TBComputingResult"/>
     </Grid>
 </Window>

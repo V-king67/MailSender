@@ -36,6 +36,7 @@ namespace WpfTests.ViewModels
             MessageBox.Show("Hello world!");
         }
         #endregion
+
         public DateTime CurrentTime => DateTime.Now;
         private readonly Timer _timer;
 
