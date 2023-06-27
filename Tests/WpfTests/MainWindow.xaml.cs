@@ -24,9 +24,20 @@ namespace WpfTests
             new Thread(() =>
             {
                 var result = LengthyWork();
-                Application.Current.Dispatcher.Invoke(() => TBComputingResult.Text = result);
+                //Application.Current.Dispatcher.Invoke(() => TBComputingResult.Text = result);
+                UpdateResultValue(result);
             })
             { IsBackground = true }.Start();
+        }
+
+        void UpdateResultValue(string result)
+        {
+            //Проверяем, находимся ли мы в одном потоке с интерфейсом (главном)
+            if (Dispatcher.CheckAccess()) 
+                TBComputingResult.Text = result;    //Алгоритм изменения интерфейса, который нужно исполнить
+            //Если нет, запускаем этот метод в главном потоке через диспетчер
+            else
+                Dispatcher.Invoke(() => UpdateResultValue(result));
         }
 
         string LengthyWork()
