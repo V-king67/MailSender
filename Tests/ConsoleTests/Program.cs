@@ -10,7 +10,8 @@ namespace ConsoleTests
         {
             //ThreadsTests.TestStart();
             //CriticalSectionTests.Start();
-            MutexTests.Start();
+            //MutexTests.Start();
+            ThreadPoolTests.Start();
 
             Console.WriteLine("Главный поток работу закончил!");
             Console.ReadLine();
