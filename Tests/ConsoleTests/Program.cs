@@ -11,7 +11,8 @@ namespace ConsoleTests
             //ThreadsTests.TestStart();
             //CriticalSectionTests.Start();
             //MutexTests.Start();
-            ThreadPoolTests.Start();
+            //ThreadPoolTests.Start();
+            ParallelTests.Start();
 
             Console.WriteLine("Главный поток работу закончил!");
             Console.ReadLine();
