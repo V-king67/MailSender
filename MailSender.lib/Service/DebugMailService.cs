@@ -1,6 +1,9 @@
 ﻿using MailSender.lib.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MailSender.lib.Service
 {
@@ -46,9 +49,25 @@ namespace MailSender.lib.Service
                 foreach (var recipientAddress in recipientAddresses)
                     Send(senderAddress, recipientAddress, subject, body);
             }
+
+            public Task SendAsync(string senderAddress, string recipientAddress, string subject, string body)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Task SendAsync(string senderAddress, IEnumerable<string> recipientAddresses, string subject, string body, IProgress<(string recipient, double percent)> progress = null, CancellationToken cancel = default)
+            {
+                throw new NotImplementedException();
+            }
+
             public void SendParallel(string senderAddress, IEnumerable<string> recipientAddresses, string subject, string body)
             {
                     Send(senderAddress, recipientAddresses, subject, body);
+            }
+
+            public Task SendParallelAsync(string senderAddress, IEnumerable<string> recipientAddresses, string subject, string body, CancellationToken cancel = default)
+            {
+                throw new NotImplementedException();
             }
         }
     }
