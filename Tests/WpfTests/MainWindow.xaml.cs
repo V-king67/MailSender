@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfTests.Infrastructure.Extentions;
 
 namespace WpfTests
 {
@@ -70,6 +71,8 @@ namespace WpfTests
 
         static async Task<int> GetWordsCountAsync(string fileName, IProgress<double> progress = null, CancellationToken cancel = default)
         {
+            await Task.Yield().ConfigureAwait(false);
+
             var dict = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
             cancel.ThrowIfCancellationRequested();
             using (var reader = new StreamReader(fileName))
@@ -83,7 +86,7 @@ namespace WpfTests
                                                 // если true (по умолчанию) - возвращается в главный поток
                     var words = line.Split(' ');
                     //Thread.Sleep (1000);
-                    await Task.Delay(400);
+                    await Task.Delay(1, cancel).ConfigureAwait(false);
 
                     foreach (var word in words)
                         if (dict.ContainsKey(word))
