@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace ConsoleTests.Data.Entities
 {
-    abstract class Entity
+    abstract public class Entity
     {
         public int Id { get; set; }
     }
 
-    abstract class NamedEntity : Entity
+    abstract public class NamedEntity : Entity
     {
         public string Name { get; set; }
+        public string Description { get; set; }
+
     }
 
-    internal class Student : NamedEntity
+    public class Student : NamedEntity
     {
         //[Key]
         //public int PrimaryKey { get; set; }
@@ -31,9 +33,8 @@ namespace ConsoleTests.Data.Entities
                                                  //т.е. Entity Framework переопределит getter свойства для формирования запроса к другой таблице в бд
     }
 
-    internal class Group : NamedEntity
+    public class Group : NamedEntity
     {
-        public string Description { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }
     }
