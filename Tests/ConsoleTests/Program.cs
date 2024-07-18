@@ -13,7 +13,7 @@ namespace ConsoleTests
     {
         static async Task Main(string[] args)
         {
-            const string connectionStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=D:\Proging\c#_3\MailSender\Tests\ConsoleTests\Data\Databases\Students.MDF;Integrated Security=True";
+            const string connectionStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Data\Databases\Students.DB;Integrated Security=True";
 
                 //В реальном приложении было бы так:
             /*
