@@ -40,7 +40,7 @@ namespace MailSender
             //services.AddSingleton<IStorage<Recipient>>(memoryStore);
             //services.AddSingleton<IStorage<Message>>(memoryStore);
 
-            const string dataFileName = "Data\\MailSenderStorage.xml";
+            const string dataFileName = "MailSenderStorage.xml";
             var fileStorage = new DataStorageInXmlFile(dataFileName);
             services.AddSingleton<IStorage<Server>>(fileStorage);
             services.AddSingleton<IStorage<Sender>>(fileStorage);

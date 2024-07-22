@@ -29,13 +29,13 @@ namespace MailSender.lib.Service
 
         public void Load()
         {
-            if (!File.Exists(_FileName))
+            if (!File.Exists("Data\\" + _FileName))
             {
                 Data = new DataStructure();
                 return;
             }
 
-            using var file = File.OpenText(_FileName);
+            using var file = File.OpenText("Data\\" + _FileName);
             if (file.BaseStream.Length == 0)
             {
                 Data = new DataStructure();
@@ -48,7 +48,9 @@ namespace MailSender.lib.Service
 
         public void SaveChanges()
         {
-            using var file = File.CreateText(_FileName);
+            if(!Directory.Exists("Data"))
+                Directory.CreateDirectory("Data");
+            using var file = File.CreateText("Data\\" + _FileName);
             var serializer = new XmlSerializer(typeof(DataStructure));
             serializer.Serialize(file, Data);
         }
