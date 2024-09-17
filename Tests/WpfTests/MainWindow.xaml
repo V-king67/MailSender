@@ -34,11 +34,13 @@
         <CheckBox Content="Включить таймер" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,0"
                   IsChecked="{Binding TimerEnabled}"/>
         <CheckBox Content="Top most" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190,0" Name="IsWindowTopMost"/>
-        <Button Content="Close window" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,58">
+        <Button Content="Close window" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,60">
             <Button.Command>
                 <commands:CloseWindowCommand/>
             </Button.Command>
         </Button>
-        <Button Content="Hello world" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,58" Command="{Binding ShowDialogCommand}"/>
+        <Button Content="Hello world" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,60" Command="{Binding ShowDialogCommand}"/>
+        <Button Content="Compute" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="240,60,0,0" Click="ComputeBtnClick"/>
+        <TextBlock Text="Result" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="250,85,0,0" TextAlignment="Center" Name="TbResult"/>
     </Grid>
 </Window>
