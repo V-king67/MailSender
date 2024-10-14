@@ -9,6 +9,7 @@ namespace MailSender.Data
         public DbSet<Recipient> Recipients { get; set; }
         public DbSet<Sender> Senders { get; set; }
         public DbSet<Server> Servers { get; set; }
+        public DbSet<SchedulerTask> SchedulerTasks {  get; set; }
 
         public MailsenderDB(DbContextOptions options) : base(options) { }
         
