@@ -1,7 +1,8 @@
-﻿using MailSender.lib.Interfaces;
+﻿using MailSender.Data;
 using MailSender.lib.Models;
 using MailSender.lib.Service;
 using MailSender.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -47,6 +48,8 @@ namespace MailSender
             services.AddSingleton<IStorage<Recipient>>(fileStorage);
             services.AddSingleton<IStorage<Message>>(fileStorage);
 
+            services.AddDbContext<MailsenderDB>(opt => opt.UseSqlServer(host.Configuration.GetConnectionString("Default")));
+            services.AddTransient<MailSenderDBInitializer>();
 
             //services.AddScoped<>();
 
