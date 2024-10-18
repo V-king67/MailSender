@@ -1,4 +1,6 @@
 ﻿using MailSender.Data;
+using MailSender.Data.Stores.InDB;
+﻿using MailSender.lib.Interfaces;
 using MailSender.lib.Models;
 using MailSender.lib.Service;
 using MailSender.ViewModels;
@@ -50,6 +52,12 @@ namespace MailSender
 
             services.AddDbContext<MailsenderDB>(opt => opt.UseSqlServer(host.Configuration.GetConnectionString("Default")));
             services.AddTransient<MailSenderDBInitializer>();
+
+            services.AddSingleton<IStore<Server>, ServersStoreInDB>();
+            services.AddSingleton<IStore<Sender>, SendersStoreInDB>();
+            services.AddSingleton<IStore<Recipient>, RecipientsStoreInDB>();
+            services.AddSingleton<IStore<Message>, MessagesStoreInDB>();
+            services.AddSingleton<IStore<SchedulerTask>, SchedulerTasksStoreInDB>();
 
             //services.AddScoped<>();
 
