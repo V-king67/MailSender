@@ -4,6 +4,7 @@ using MailSender.lib.Interfaces;
 using MailSender.lib.Models;
 using MailSender.ViewModels.Base;
 using MailSender.Windows;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace MailSender.ViewModels
     class MainWindowViewModel : ViewModel
     {
         readonly IMailService _mailService;
-        readonly IStorage<Server> _ServerStorage;
-        readonly IStorage<Sender> _SenderStorage;
-        readonly IStorage<Recipient> _RecipientStorage;
-        readonly IStorage<Message> _MessageStorage;
+        readonly IStore<Recipient> _recipientsStore;
+        readonly IStore<Sender> _senderStore;
+        readonly IStore<Server> _serverStore;
+        readonly IStore<Message> _messageStore;
+        readonly IStore<SchedulerTask> _schedulerTasksStore;
+        readonly IMailSchedulerService _mailSchedulerService;
 
         public StatisticViewModel Statistic { get; } = new StatisticViewModel();
 
@@ -30,13 +33,21 @@ namespace MailSender.ViewModels
             set => Set(ref _title, value);
         }
 
-        public MainWindowViewModel(IMailService mailService, IStorage<Server> serverStorage, IStorage<Sender> senderStorage, IStorage<Recipient> recipientStorage, IStorage<Message> messageStorage)
+        public MainWindowViewModel(IMailService mailService,
+                                   IStore<Recipient> RecipientsStore,
+                                   IStore<Sender> SenderStore,
+                                   IStore<Server> ServerStore,
+                                   IStore<Message> MessageStore,
+                                   IStore<SchedulerTask> SchedulerTasksStore,
+                                   IMailSchedulerService mailSchedulerService)
         {
             _mailService = mailService;
-            _ServerStorage = serverStorage;
-            _SenderStorage = senderStorage;
-            _RecipientStorage = recipientStorage;
-            _MessageStorage = messageStorage;
+            _recipientsStore = RecipientsStore;
+            _senderStore = SenderStore;
+            _serverStore = ServerStore;
+            _messageStore = MessageStore;
+            _schedulerTasksStore = SchedulerTasksStore;
+            _mailSchedulerService = mailSchedulerService;
         }
 
         #region Коллекции
@@ -110,15 +121,10 @@ namespace MailSender.ViewModels
 
         private void OnLoadDataCommandExecuted(object p)
         {
-            _ServerStorage.Load();
-            _SenderStorage.Load();
-            _RecipientStorage.Load();
-            _MessageStorage.Load();
-
-            Servers = new ObservableCollection<Server>(_ServerStorage.Items);
-            Senders = new ObservableCollection<Sender>(_SenderStorage.Items);
-            Recipients = new ObservableCollection<Recipient>(_RecipientStorage.Items);
-            Messages = new ObservableCollection<Message>(_MessageStorage.Items);
+            Servers = new ObservableCollection<Server>(_serverStore.GetAll());
+            Senders = new ObservableCollection<Sender>(_senderStore.GetAll());
+            Recipients = new ObservableCollection<Recipient>(_recipientsStore.GetAll());
+            Messages = new ObservableCollection<Message>(_messageStore.GetAll());
         }
         #endregion
 
@@ -129,10 +135,7 @@ namespace MailSender.ViewModels
 
         private void OnSaveDataCommandExecuted(object p)
         {
-            _ServerStorage.SaveChanges();
-            _SenderStorage.SaveChanges();
-            _RecipientStorage.SaveChanges();
-            _MessageStorage.SaveChanges();
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -173,7 +176,8 @@ namespace MailSender.ViewModels
                 Password = password
             };
 
-            _ServerStorage.Items.Add(server);
+            //_ServerStorage.Items.Add(server);
+            throw new NotImplementedException();
             Servers.Add(server);
         }
         #endregion
@@ -224,7 +228,8 @@ namespace MailSender.ViewModels
         {
             var server = p as Server ?? SelectedServer;
             if (server is null) return;
-            _ServerStorage.Items.Remove(server);
+            //_ServerStorage.Items.Remove(server);
+            throw new NotImplementedException();
             Servers.Remove(server);
             SelectedServer = Servers.FirstOrDefault();
         }
@@ -244,7 +249,9 @@ namespace MailSender.ViewModels
             if(!SenderEditDialog.Create(out var name, out var address)) return;
 
             var sender = new Sender { Name = name, Address = address };
-            _SenderStorage.Items.Add(sender);
+            //_SenderStorage.Items.Add(sender);
+            throw new NotImplementedException();
+
             Senders.Add(sender);
         }
         #endregion
@@ -283,7 +290,9 @@ namespace MailSender.ViewModels
         {
             var sender = p as Sender ?? SelectedSender;
             if(sender is null) return;
-            _SenderStorage.Items.Remove(sender);
+            //_SenderStorage.Items.Remove(sender);
+            throw new NotImplementedException();
+
             Senders.Remove(sender);
             SelectedSender = Senders.FirstOrDefault();
         }
@@ -305,7 +314,9 @@ namespace MailSender.ViewModels
             if ((bool)dialog.ShowDialog())
             {
                 var recipient = (dialog.DataContext as RecipientEditWindowViewModel).Recipient;
-                _RecipientStorage.Items.Add(recipient);
+                //_RecipientStorage.Items.Add(recipient);
+                throw new NotImplementedException();
+
                 Recipients.Add(recipient);
             }
         }
@@ -347,7 +358,9 @@ namespace MailSender.ViewModels
         {
             var recipient = p as Recipient ?? SelectedRecipient;
             if (recipient is null) return;
-            _RecipientStorage.Items.Remove(recipient);
+            //_RecipientStorage.Items.Remove(recipient);
+            throw new NotImplementedException();
+
             Recipients.Remove(recipient);
             SelectedRecipient = Recipients.FirstOrDefault();
         }
