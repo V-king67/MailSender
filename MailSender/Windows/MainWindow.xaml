@@ -9,6 +9,7 @@
         xmlns:m="clr-namespace:MailSender.lib.Models;assembly=MailSender.lib"
         xmlns:cmd="clr-namespace:MailSender.Infrastructure.Commands"
         xmlns:local="clr-namespace:MailSender.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         DataContext="{Binding MainWindowModel, Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
@@ -117,6 +118,7 @@
                     <GroupBox Grid.Column="0" Header="Управление">
                         <StackPanel>
                             <Calendar/>
+                            <xctk:TimePicker/>
                             <StackPanel Margin="5,7">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button">
