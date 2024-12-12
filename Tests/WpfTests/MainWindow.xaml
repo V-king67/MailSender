@@ -13,32 +13,16 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <Grid>
-        <TextBox VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Margin="22,35,0,0"
-                 Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
-        <Slider VerticalAlignment="Top" HorizontalAlignment="Left" Width="140" Margin="325,35,0,0" Maximum="600"
-                Value="{Binding X, ElementName=Translator}"/>
-        <Slider VerticalAlignment="Top" HorizontalAlignment="Center" Width="140" Margin="0,35,0,0" Minimum="-180" Maximum="180"
-                Value="{Binding Angle, ElementName=Rotator}"/>
-        <Ellipse Name="MyEllipse"  Fill="Blue" Stroke="Red" StrokeThickness="3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Height="40" Margin="67,115,0,0"
-                 RenderTransformOrigin="0.5,0.5">
-            <Ellipse.RenderTransform>
-                <TransformGroup>
-                    <RotateTransform Angle="0" x:Name="Rotator"/>
-                    <TranslateTransform X="0" x:Name="Translator"/>
-                </TransformGroup>
-            </Ellipse.RenderTransform>
-        </Ellipse>
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" 
-                   Text="{Binding CurrentTime, ConverterCulture=ru-RU, StringFormat=HH:mm:ss.ff}"/>
-        <CheckBox Content="Включить таймер" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="70,0"
-                  IsChecked="{Binding TimerEnabled}"/>
-        <CheckBox Content="Top most" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190,0" Name="IsWindowTopMost"/>
-        <Button Content="Close window" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="53,58">
-            <Button.Command>
-                <commands:CloseWindowCommand/>
-            </Button.Command>
-        </Button>
-        <Button Content="Hello world" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,58" Command="{Binding ShowDialogCommand}"/>
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Открыть файл" Click="OnOpenFileClick" Name="openFile"/>
+            <MenuItem Header="Отменить" Click="OnCancelReadingClick" Name="cancelReading" IsEnabled="False"/>
+        </Menu>
+        <ProgressBar DockPanel.Dock="Bottom" Height="20" Maximum="1" Minimum="0" Name="progressInfo"/>
+        <Grid>
+            <TextBlock Name="tbResult" Text="Результат"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontWeight="Bold" FontSize="20"/>
+        </Grid>
+    </DockPanel>
 </Window>
